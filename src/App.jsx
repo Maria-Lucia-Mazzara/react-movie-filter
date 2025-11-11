@@ -18,38 +18,38 @@ function App() {
 
   useEffect(() => {
     console.log('Lista dei film:', movieSelection);
-  }, []);
-
-
-  const AddMovies = e => {
-    e.preventDefault();
-    if (!Genere) return;
+    if (!Genere) {
+      setFilterMovies([...filterMovies]);
+    };
     const filtrati = movieSelection.filter(movie => movie.genre === Genere);
-    setFilterMovies([...filterMovies, ...filtrati]);
-  };
+    setFilterMovies([...filtrati]);
+  }, [Genere]);
+
+
+
 
   return (
     <>
       <h1>Lista Film</h1>
-      <form onSubmit={AddMovies}>
-        <select
-          value={Genere}
-          onChange={e => setGenere(e.target.value)}
-        >
-          <option value="">Tutti i generi</option>
-          <option value="Fantascienza">Fantascienza</option>
-          <option value="Thriller">Thriller</option>
-          <option value="Romantico">Romantico</option>
-          <option value="Azione">Azione</option>
-        </select>
-        <ul>
-          {movieSelection.map((movie, index) => (
-            <li key={index}>
-              {movie.title} - {movie.genre}
-            </li>
-          ))}
-        </ul>
-      </form>
+
+      <select
+        value={Genere}
+        onChange={e => setGenere(e.target.value)}
+      >
+        <option value="">Tutti i generi</option>
+        <option value="Fantascienza">Fantascienza</option>
+        <option value="Thriller">Thriller</option>
+        <option value="Romantico">Romantico</option>
+        <option value="Azione">Azione</option>
+      </select>
+      <ul>
+        {filterMovies.map((movie, index) => (
+          <li key={index}>
+            {movie.title} - {movie.genre}
+          </li>
+        ))}
+      </ul>
+
 
     </>
   )
