@@ -18,11 +18,13 @@ function App() {
 
   useEffect(() => {
     console.log('Lista dei film:', movieSelection);
-    if (!Genere) {
-      setFilterMovies([...filterMovies]);
-    };
-    const filtrati = movieSelection.filter(movie => movie.genre === Genere);
-    setFilterMovies([...filtrati]);
+    if (Genere === '') {
+      setFilterMovies(movieSelection);
+    } else {
+      const filtrati = movieSelection.filter(movie => movie.genre === Genere);
+      setFilterMovies(filtrati);
+    }
+
   }, [Genere]);
 
 
